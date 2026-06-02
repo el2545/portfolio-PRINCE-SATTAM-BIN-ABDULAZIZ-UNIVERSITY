@@ -45,9 +45,14 @@
   const maxHeatPoints = 12000;
   const maxVehiclesPerFrame = 1600;
   const byId = (id) => document.getElementById(id);
+  const translate = (value) => {
+    const text = String(value);
+    return window.portfolioTranslateText ? window.portfolioTranslateText(text) : text;
+  };
   const setText = (id, value) => {
     const element = byId(id);
-    if (element) element.textContent = value;
+    if (element && window.portfolioRenderText) window.portfolioRenderText(element, value);
+    else if (element) element.textContent = translate(value);
   };
 
   let map = null;
@@ -365,6 +370,15 @@
     });
     byId("sumoVehicleSize").addEventListener("input", drawStep);
     byId("sumoResetSimulation").addEventListener("click", fitSimulation);
+    window.addEventListener("portfolio-language-change", () => {
+      updateUI();
+      if (mode === "heatmap" && currentData) updateHeatKpis();
+      if (mode === "simulation" && currentData) {
+        setText("sumoKpiSteps", currentData.timesteps.length.toLocaleString("en-US"));
+        setText("sumoKpiSpeed", `${Number((currentData.kpis || {}).averageSpeed || 0).toFixed(2)} m/s`);
+        drawStep();
+      }
+    });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -377,12 +391,21 @@
       started = true;
       if (initMap()) loadCurrent();
     };
-    if (location.hash === "#simulation") start();
-    const observer = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      observer.disconnect();
-      start();
-    }, { rootMargin: "320px 0px", threshold: 0.01 });
-    observer.observe(dashboard);
+    const startSoon = () => window.setTimeout(start, 80);
+    dashboard.addEventListener("click", startSoon, { capture: true });
+    window.addEventListener("hashchange", () => {
+      if (location.hash === "#simulation") startSoon();
+    });
+    if (location.hash === "#simulation") startSoon();
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) return;
+        observer.disconnect();
+        startSoon();
+      }, { rootMargin: "420px 0px", threshold: 0.01 });
+      observer.observe(dashboard);
+    } else {
+      startSoon();
+    }
   });
 })();

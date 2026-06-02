@@ -113,6 +113,18 @@ p { line-height: 1.7; }
 }
 .nav-menu a:hover, .nav-menu a.active { background: var(--green-100); color: var(--green-800); }
 .nav-menu .nav-cta { background: var(--green-900); color: var(--white); }
+.lang-toggle {
+  border: 1px solid rgba(213,181,109,.72);
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: var(--gold-soft);
+  color: var(--green-950);
+  font: inherit;
+  font-size: .75rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+.lang-toggle:hover { background: var(--gold); }
 .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 12px; width: 42px; height: 42px; background: var(--white); }
 .menu-toggle span { display: block; width: 18px; height: 2px; margin: 4px auto; border-radius: 999px; background: var(--green-900); }
 
@@ -422,11 +434,113 @@ h3 { color: var(--green-950); font-size: 1.02rem; line-height: 1.25; }
 .footer { border-top: 1px solid var(--line); background: var(--white); }
 .footer-inner { display: flex; justify-content: space-between; gap: 14px; padding: 20px 0; color: var(--muted); font-size: .78rem; font-weight: 800; }
 
+html[dir="rtl"] body {
+  font-family: Tahoma, Arial, "Segoe UI", sans-serif;
+  text-align: right;
+}
+html[dir="rtl"] .nav,
+html[dir="rtl"] .brand,
+html[dir="rtl"] .nav-menu,
+html[dir="rtl"] .hero-actions,
+html[dir="rtl"] .sumo-heading,
+html[dir="rtl"] .sumo-toolbar,
+html[dir="rtl"] .sumo-tags,
+html[dir="rtl"] .footer-inner {
+  direction: rtl;
+}
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] p,
+html[dir="rtl"] dt,
+html[dir="rtl"] dd,
+html[dir="rtl"] .btn,
+html[dir="rtl"] .text-link,
+html[dir="rtl"] .eyebrow {
+  letter-spacing: 0;
+}
+html[dir="rtl"] h1 {
+  line-height: 1.08;
+}
+html[dir="rtl"] .hero-copy::before,
+html[dir="rtl"] .card::before,
+html[dir="rtl"] .skill-card::before,
+html[dir="rtl"] .doc-card::before,
+html[dir="rtl"] .project-card::before,
+html[dir="rtl"] .experience-card::before {
+  background: linear-gradient(270deg, var(--green-700), var(--gold));
+}
+html[dir="rtl"] .hero-copy::after {
+  right: auto;
+  left: -90px;
+}
+html[dir="rtl"] .facts div {
+  direction: rtl;
+}
+html[dir="rtl"] .facts dd {
+  text-align: left;
+}
+html[dir="rtl"] .project-card dl div,
+html[dir="rtl"] .snapshot-list div,
+html[dir="rtl"] .experience-card,
+html[dir="rtl"] .skill-card,
+html[dir="rtl"] .doc-card,
+html[dir="rtl"] .card {
+  direction: rtl;
+}
+html[dir="rtl"] .sumo-shell,
+html[dir="rtl"] #sumoMap,
+html[dir="rtl"] #sumoCanvas,
+html[dir="rtl"] .leaflet-container {
+  direction: ltr;
+  text-align: left;
+}
+html[dir="rtl"] .sumo-heading,
+html[dir="rtl"] .sumo-toolbar,
+html[dir="rtl"] .sumo-side,
+html[dir="rtl"] .sumo-note,
+html[dir="rtl"] .sumo-tags,
+html[dir="rtl"] .sumo-kpis {
+  direction: rtl;
+  text-align: right;
+}
+html[dir="rtl"] .sumo-side {
+  border-right: 1px solid rgba(213,181,109,.2);
+  border-left: 0;
+}
+html[dir="rtl"] .sumo-kpi {
+  border-right: 0;
+  border-left: 1px solid rgba(213,181,109,.18);
+}
+html[dir="rtl"] .sumo-kpi:nth-child(2n) {
+  border-left: 0;
+}
+html[dir="rtl"] .sumo-map-badge {
+  right: 12px;
+  left: auto;
+  text-align: right;
+}
+html[dir="rtl"] .sumo-legend {
+  right: 12px;
+  left: auto;
+  direction: rtl;
+  text-align: right;
+}
+html[dir="rtl"] .sumo-dot {
+  margin-right: 0;
+  margin-left: 4px;
+}
+html[dir="rtl"] .contact-card {
+  direction: ltr;
+  text-align: left;
+}
+
 @media (max-width: 1050px) {
   .hero-grid, .contact-grid, .snapshot-grid { grid-template-columns: 1fr; }
   .fit-grid, .project-grid, .experience-grid, .skills-grid, .docs-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .sumo-grid { grid-template-columns: 1fr; }
   .sumo-side { border-top: 1px solid rgba(213,181,109,.2); border-left: 0; }
+  html[dir="rtl"] .sumo-side { border-top: 1px solid rgba(213,181,109,.2); border-right: 0; }
   .flagship-grid, .timeline { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 
@@ -454,6 +568,7 @@ h3 { color: var(--green-950); font-size: 1.02rem; line-height: 1.25; }
   }
   .nav-menu.open { display: flex; }
   .nav-menu a { padding: 12px; }
+  .lang-toggle { width: 100%; padding: 12px; }
   .hero { padding: 36px 0; }
   .hero-copy { padding: 24px; }
   .hero-copy::after { display: none; }
