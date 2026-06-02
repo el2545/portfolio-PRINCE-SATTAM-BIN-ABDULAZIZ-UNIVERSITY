@@ -10,6 +10,7 @@
   <meta property="og:description" content="Digital transformation, AI governance, smart-city decision readiness, and evidence-based admissions portfolio for PSAU DTET.">
   <title>El Ghali Sany | PSAU DTET Portfolio</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='18' width='64' height='64' fill='%2306251f'/%3E%3Cpath d='M14 42V22h18c10 0 18 6 18 16v4' fill='none' stroke='%23d5b56d' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M22 32h18' stroke='%23ffffff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="leaflet.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,6 +33,7 @@
         <a href="#trajectory">Trajectory</a>
         <a href="#flagship">Flagship</a>
         <a href="#projects">Projects</a>
+        <a href="#simulation">SUMO Map</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#documents">Documents</a>
@@ -44,10 +46,10 @@
     <section class="hero" id="top">
       <div class="container hero-grid">
         <article class="hero-copy">
-          <p class="eyebrow">Prince Sattam bin Abdulaziz University | Al-Kharj, Saudi Arabia</p>
-          <h1><span>Digital Transformation,</span> <span>AI Governance &amp;</span> <span>Smart-City Decision Readiness</span></h1>
-          <p class="hero-subtitle">Applicant to the Master in Digital Transformation and Emerging Technologies at Prince Sattam bin Abdulaziz University.</p>
-          <p class="hero-positioning">Management, Finance &amp; Accounting graduate building data-driven readiness frameworks for AI-enabled transformation and smart-city investment decisions.</p>
+          <p class="eyebrow">Prince Sattam bin Abdulaziz University | Saudi Arabia</p>
+          <h1><span>Digital Transformation,</span> <span>AI Governance &amp;</span> <span>Smart-City Decision</span> <span>Readiness</span></h1>
+          <p class="hero-subtitle"><span>Applicant to PSAU's Master in</span> <span>Digital Transformation &amp; Emerging Technologies.</span></p>
+          <p class="hero-positioning">Management and finance background focused on AI readiness, governance, and smart-city decisions.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#fit">View Research Fit</a>
             <a class="btn" href="CV_Prince_Sattam_DTET_El_Ghali_Sany.pdf" download>Download CV</a>
@@ -171,6 +173,80 @@
       </div>
     </section>
 
+    <section class="section sumo-section" id="simulation">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Casablanca Smart-City Evidence</p>
+          <h2>SUMO / Leaflet traffic simulation</h2>
+          <p>This dashboard reuses geo-corrected SUMO floating-car-data outputs from the Casablanca PFE. It supports the PSAU DTET narrative by showing how traffic simulation, spatial data, and investment logic can inform smart-city decision readiness.</p>
+        </div>
+        <div class="sumo-shell" id="sumo-dashboard">
+          <div class="sumo-heading">
+            <strong>Leaflet / SUMO Traffic Dashboard</strong>
+            <span>OpenStreetMap | SUMO FCD | 5 Casablanca zones</span>
+          </div>
+          <div class="sumo-toolbar" aria-label="SUMO dashboard modes">
+            <button class="sumo-mode active" type="button" data-sumo-mode="heatmap" aria-label="View traffic density heatmap">Heatmap</button>
+            <button class="sumo-mode" type="button" data-sumo-mode="simulation" aria-label="View SUMO vehicle simulation">Simulation</button>
+          </div>
+          <div class="sumo-toolbar" aria-label="SUMO zones">
+            <button class="sumo-zone active" type="button" data-sumo-zone="maarif" style="--zone-color:#ff5d6c">Maarif</button>
+            <button class="sumo-zone" type="button" data-sumo-zone="hay_hassani" style="--zone-color:#ffd166">Hay Hassani</button>
+            <button class="sumo-zone" type="button" data-sumo-zone="ben_msick" style="--zone-color:#00d99b">Ben M'Sick</button>
+            <button class="sumo-zone" type="button" data-sumo-zone="sidi_maarouf" style="--zone-color:#c790ff">Sidi Maarouf</button>
+            <button class="sumo-zone" type="button" data-sumo-zone="bd_mohammed_v" style="--zone-color:#4cc9f0">Bd. Mohammed V</button>
+          </div>
+          <div class="sumo-grid">
+            <div class="sumo-map-wrap">
+              <div id="sumoMap" aria-label="Interactive Casablanca SUMO traffic map"></div>
+              <canvas id="sumoCanvas" aria-hidden="true"></canvas>
+              <div class="sumo-map-badge">
+                <strong id="sumoZoneTitle">Maarif</strong>
+                <span id="sumoStatus">Preparing SUMO heatmap...</span>
+              </div>
+              <div class="sumo-legend" id="sumoHeatLegend">
+                <span><i class="sumo-dot green"></i>Low concentration</span>
+                <span><i class="sumo-dot yellow"></i>Medium</span>
+                <span><i class="sumo-dot red"></i>High</span>
+              </div>
+              <div class="sumo-legend sumo-hidden" id="sumoSimulationLegend">
+                <span><i class="sumo-dot red"></i>Slow</span>
+                <span><i class="sumo-dot yellow"></i>Medium</span>
+                <span><i class="sumo-dot green"></i>Fast</span>
+              </div>
+            </div>
+            <aside class="sumo-side" aria-label="SUMO simulation controls and indicators">
+              <div class="sumo-kpis">
+                <div class="sumo-kpi"><div class="sumo-kpi-label" id="sumoMainLabel">POINTS</div><div class="sumo-kpi-value" id="sumoKpiMain">-</div></div>
+                <div class="sumo-kpi"><div class="sumo-kpi-label">VEHICLES</div><div class="sumo-kpi-value" id="sumoKpiVehicles">-</div></div>
+                <div class="sumo-kpi"><div class="sumo-kpi-label">STEPS</div><div class="sumo-kpi-value" id="sumoKpiSteps">-</div></div>
+                <div class="sumo-kpi"><div class="sumo-kpi-label">AVG SPEED</div><div class="sumo-kpi-value" id="sumoKpiSpeed">-</div></div>
+              </div>
+              <div class="sumo-controls" id="sumoHeatControls">
+                <div class="sumo-control-row"><label for="sumoRadius">Heat radius</label><input id="sumoRadius" max="30" min="4" type="range" value="10"></div>
+                <div class="sumo-control-row"><label for="sumoBlur">Blur</label><input id="sumoBlur" max="30" min="3" type="range" value="8"></div>
+                <div class="sumo-control-row"><label for="sumoIntensity">Intensity</label><input id="sumoIntensity" max="10" min="1" type="range" value="3"></div>
+                <button class="sumo-control" id="sumoResetHeatmap" type="button">Recenter</button>
+              </div>
+              <div class="sumo-controls sumo-hidden" id="sumoSimulationControls">
+                <div class="sumo-control-grid">
+                  <button class="sumo-control" id="sumoPlay" type="button">Play</button>
+                  <button class="sumo-control" id="sumoPause" type="button">Pause</button>
+                  <button class="sumo-control" id="sumoRestart" type="button">Restart</button>
+                  <button class="sumo-control" id="sumoResetSimulation" type="button">Recenter</button>
+                </div>
+                <div class="sumo-control-row"><label for="sumoSpeed">Animation speed</label><input id="sumoSpeed" max="12" min="1" type="range" value="6"></div>
+                <div class="sumo-control-row"><label for="sumoVehicleSize">Vehicle size</label><input id="sumoVehicleSize" max="10" min="2" type="range" value="6"></div>
+              </div>
+              <div class="sumo-note" id="sumoAnalysis">Heatmap based on geo-corrected SUMO FCD outputs. Switch to Simulation to display vehicles step by step.</div>
+              <div class="sumo-tags"><span>SUMO FCD</span><span>QGIS context</span><span>Smart-city analytics</span><span>Investment readiness</span></div>
+            </aside>
+          </div>
+        </div>
+        <p class="sumo-scope"><strong>Data scope.</strong> These bundled JSON files are analytical outputs from the Casablanca final project. They are portfolio evidence for spatial decision support, not real-time municipal traffic monitoring.</p>
+      </div>
+    </section>
+
     <section class="section" id="experience">
       <div class="container">
         <div class="section-head">
@@ -181,20 +257,20 @@
           <article class="experience-card">
             <p class="meta">SAN MAROC | Casablanca / Remote | Feb. 2026 - Present</p>
             <h3>Business Analysis Intern - Financial Performance</h3>
-            <p><strong>Key contribution:</strong> Analyzed a MAD 97.9B non-performing-loan portfolio by debt aging, recovery probability, and collection-priority logic; reduced reporting cycle time by 40% using VBA and Power Query.</p>
-            <p><strong>DTET relevance:</strong> Financial-performance monitoring, data-supported prioritization, operational reporting, and risk analytics.</p>
+            <p><strong>Impact:</strong> NPL portfolio analysis, collection-priority logic, dashboards, and 40% faster reporting with VBA and Power Query.</p>
+            <p><strong>DTET relevance:</strong> Risk analytics, operational reporting, and data-supported prioritization.</p>
           </article>
           <article class="experience-card">
             <p class="meta">2ACOM Advertising Sales Agency | Casablanca | May 2025 - Jul. 2025</p>
             <h3>Business Analysis Intern - Performance and KPIs</h3>
-            <p><strong>Key contribution:</strong> Built a five-year financial model and designed a multi-criteria profitability index with 15+ variables across five Casablanca market zones.</p>
-            <p><strong>DTET relevance:</strong> Data-driven decision-making, KPI modelling, investment readiness, and urban analytics.</p>
+            <p><strong>Impact:</strong> Five-year financial model and 15+ variable profitability index across five Casablanca market zones.</p>
+            <p><strong>DTET relevance:</strong> KPI modelling, investment readiness, and urban decision analytics.</p>
           </article>
           <article class="experience-card">
             <p class="meta">MAGHREBAIL Leasing and Financing | Casablanca | Jul. 2024 - Aug. 2024</p>
             <h3>Analysis and Reporting Intern - Client Portfolios and Risk</h3>
-            <p><strong>Key contribution:</strong> Analyzed financial performance and credit-risk exposure across 20+ corporate client portfolios and improved reporting outputs.</p>
-            <p><strong>DTET relevance:</strong> Risk analysis, reporting discipline, portfolio monitoring, and decision-support logic.</p>
+            <p><strong>Impact:</strong> Financial-performance and credit-risk review across 20+ corporate client portfolios.</p>
+            <p><strong>DTET relevance:</strong> Portfolio monitoring, reporting discipline, and decision-support logic.</p>
           </article>
         </div>
       </div>
@@ -280,6 +356,9 @@
     </div>
   </footer>
 
+  <script src="leaflet.min.js"></script>
+  <script src="leaflet-heat.js"></script>
+  <script src="sumo.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
